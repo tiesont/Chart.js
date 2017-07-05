@@ -2,9 +2,14 @@
 <html>
 
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bar Chart</title>
-    <script src="../../../dist/Chart.bundle.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../github.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
     <script src="../../utils.js"></script>
+    <script src="../../prism.js" data-manual></script>
     <style>
     canvas {
         -moz-user-select: none;
@@ -15,15 +20,33 @@
 </head>
 
 <body>
-    <div id="container" style="width: 75%;">
-        <canvas id="canvas"></canvas>
-    </div>
-    <button id="randomizeData">Randomize Data</button>
-    <button id="addDataset">Add Dataset</button>
-    <button id="removeDataset">Remove Dataset</button>
-    <button id="addData">Add Data</button>
-    <button id="removeData">Remove Data</button>
-    <script>
+	<div style="width: 75%; margin: 1rem auto;">
+		<div id="container">
+			<canvas id="canvas"></canvas>
+		</div>
+		<button id="randomizeData">Randomize Data</button>
+		<button id="addDataset">Add Dataset</button>
+		<button id="removeDataset">Remove Dataset</button>
+		<button id="addData">Add Data</button>
+		<button id="removeData">Remove Data</button>
+		<button type="button" id="viewSource">View Sample Source Code</button>
+		
+		<div style="overflow: auto; max-height: 600px;">
+			<pre><code id="sample-code" class="language-js"></code></pre>
+		</div>
+	</div>
+	
+	<script>
+		var viewButton = document.getElementById('viewSource');
+		viewButton.onclick = function(e){
+			var source = document.getElementById('sample-source');
+			var output = document.getElementById('sample-code');
+			output.innerHTML = source.innerHTML;
+			Prism.highlightAll();
+		};
+	</script>
+	
+    <script id="sample-source">
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         var color = Chart.helpers.color;
         var barChartData = {
